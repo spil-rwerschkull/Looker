@@ -3,7 +3,7 @@ view: vw_native_user_segmentation_report {
     sql:
       SELECT
         *
-        FROM native_state.vw_native_user_segmentation_report ;;
+        FROM native_state.vw_native_user_segmentation_report_agg ;;
     persist_for: "1 hour"
   }
 
@@ -11,7 +11,7 @@ view: vw_native_user_segmentation_report {
   dimension: compound_primary_key {
     primary_key: yes
     hidden: yes
-    sql: CONCAT(${TABLE}.user_id, '  ', ${TABLE}.app_name, '  ', ${TABLE}.prop_ts_server, '  ', ${TABLE}.purchase_flag, '  ', ${TABLE}.location_Country, '  ', ${TABLE}.device_Os ) ;;
+    sql: CONCAT(${TABLE}.user_id, '  ', ${TABLE}.app_name, '  ', ${TABLE}.proptsserver, '  ', ${TABLE}.purchase_flag, '  ', ${TABLE}.location_Country, '  ', ${TABLE}.device_Os ) ;;
   }
 
   dimension: app_name {
@@ -186,8 +186,8 @@ view: vw_native_user_segmentation_report {
 
   measure: unique_user_count {
     type: count_distinct
-    sql: ${TABLE}.user_Id
     drill_fields: [device_platform,country_name]
+    sql: ${TABLE}.user_Id
     ;;
   }
 
