@@ -4,7 +4,6 @@ connection: "looker_bigquery"
 include: "*.view"
 
 # include all the dashboards
-include: "*.dashboard"
 
 
 explore: vw_native_user_segmentation_report {}
