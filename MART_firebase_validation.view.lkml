@@ -1,3 +1,7 @@
+datagroup: 6am_daily_refresh {
+  sql_trigger: SELECT FLOOR((UNIX_SECONDS(CURRENT_TIMESTAMP) - 60*60*6)/(60*60*24)) ;;
+}
+
 view: firebase_data {
  derived_table: {
   sql: WITH base_data AS
@@ -63,8 +67,7 @@ GROUP BY
 
 SELECT
  levelName
- , MIN(l.app_version_comp) AS minAppVersion
- , MAX(l.app_version_comp) AS maxAppVersion
+ , l.app_version_comp AS appVersionComparable
  , COUNT(DISTINCT u.SpilUid) AS noUniqueSpilUsers
  , COUNT(DISTINCT l.FirebaseUserId) AS noUniqueFirebaseUsers
  , COUNT(DISTINCT l.advertisingId) AS noUniqueDeviceIds
@@ -79,9 +82,46 @@ ON
   AND l.app_version_comp = u.app_version_comp)
 GROUP BY
  1
+, 2
 ORDER BY
- 1;;
+ 1
+, 2;;
+datagroup_trigger: 6am_daily_refresh
 }
+  dimension: levelName {
+    type: string
+    sql: ${TABLE}.levelName ;;
+  }
+
+  dimension: appVersionComparable {
+    type: string
+    sql: ${TABLE}.appVersionComparable ;;
+  }
+
+  dimension: os {
+    type: string
+    sql: ${TABLE}.os ;;
+  }
+
+  dimension: noUniqueSpilUserIds {
+    type: number
+    sql: ${TABLE}.noUniqueSpilUserIds ;;
+  }
+
+  dimension: noUniqueFirebaseUserIds {
+    type: number
+    sql: ${TABLE}.noUniqueFirebaseUserIds ;;
+  }
+
+  dimension: noUniqueDeviceIds {
+    type: number
+    sql: ${TABLE}.noUniqueDeviceIds ;;
+  }
+
+  dimension: noEvents {
+    type: number
+    sql: ${TABLE}.noEvents ;;
+  }
 }
 
 

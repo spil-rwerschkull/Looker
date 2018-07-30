@@ -1,5 +1,13 @@
 connection: "looker_bigquery"
 
+include: "MART_firebase_validation.view"
+
+label: "fierbase data validation"
+
+explore: firebase_data {
+  label: "firebase_data - firebase data validation"
+}
+
 
 # # Select the views that should be a part of this model,
 # # and define the joins that connect them together.
