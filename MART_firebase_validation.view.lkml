@@ -86,7 +86,7 @@ GROUP BY
 ORDER BY
  1
 , 2;;
-datagroup_trigger: 6am_daily_refresh
+#datagroup_trigger: 6am_daily_refresh
 }
   dimension: levelName {
     type: string
