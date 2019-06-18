@@ -5,7 +5,7 @@ include: "MART_firebase_validation.view"
 label: "fierbase data validation"
 
 explore: firebase_data {
-  label: "firebase_data - firebase data validation"
+  label: "firebase_data - firebasze data validation"
 }
 
 
